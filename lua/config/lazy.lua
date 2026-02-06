@@ -18,4 +18,5 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = { { import = "nedas.plugins" } },
   change_detection = { notify = false },
+  ui = { border = "rounded" },
 })
