@@ -22,7 +22,8 @@ return {
         "css",
         "json",
         "templ",
-        "dart"
+        "dart",
+        "elixir"
       },
 
       -- Install parsers synchronously (only applied to `ensure_installed`)

@@ -1,8 +1,8 @@
 function ApplyTransparency()
   -- transparent background
   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-  -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-  -- vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+  vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
   vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
   vim.api.nvim_set_hl(0, "Terminal", { bg = "none" })
   vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
@@ -47,3 +47,5 @@ function ApplyTransparency()
 end
 
 ApplyTransparency()
+-- set in after to net add borders to every winpopup
+vim.opt.winborder = "rounded"

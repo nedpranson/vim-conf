@@ -25,6 +25,7 @@ return {
         "templ",
         --"htmx",
         "cssls",
+        "elixirls",
       },
       automatic_enable = {
         exclude = {
