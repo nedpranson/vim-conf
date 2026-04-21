@@ -53,7 +53,10 @@ vim.diagnostic.config({
 
 vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
+        -- transparent background
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+        vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
         vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
         vim.api.nvim_set_hl(0, "Terminal", { bg = "none" })
         vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
@@ -62,6 +65,39 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
         vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
         vim.api.nvim_set_hl(0, "WhichKeyFloat", { bg = "none" })
+        vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = "none" })
+        vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "TelescopePromptBorder", { bg = "none" })
+        vim.api.nvim_set_hl(0, "TelescopePromptTitle", { bg = "none" })
+
+        -- transparent background for neotree
+        vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NeoTreeVertSplit", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NeoTreeEndOfBuffer", { bg = "none" })
+
+        -- transparent background for nvim-tree
+        vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NvimTreeVertSplit", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NvimTreeEndOfBuffer", { bg = "none" })
+
+        -- transparent notify background
+        vim.api.nvim_set_hl(0, "NotifyINFOBody", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyERRORBody", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyWARNBody", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyTRACEBody", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyDEBUGBody", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyINFOTitle", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyERRORTitle", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyWARNTitle", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyTRACETitle", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyDEBUGTitle", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyINFOBorder", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyERRORBorder", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyWARNBorder", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyTRACEBorder", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NotifyDEBUGBorder", { bg = "none" })
     end,
 })
 
@@ -82,20 +118,55 @@ vim.api.nvim_create_autocmd('FileType', {
     end,
 })
 
-vim.pack.add {
+vim.pack.add({
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/mason-org/mason.nvim",
     "https://github.com/mason-org/mason-lspconfig.nvim",
-}
+})
 
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-vim.pack.add {
+vim.pack.add({
     "https://github.com/L3MON4D3/LuaSnip",
     "https://github.com/rafamadriz/friendly-snippets",
     "https://github.com/saghen/blink.cmp",
-}
+})
 
 require("luasnip.loaders.from_vscode").lazy_load()
 require("blink.cmp").setup()
+
+vim.pack.add({
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/nvim-telescope/telescope.nvim",
+    { src = "https://github.com/theprimeagen/harpoon", version = "harpoon2" },
+})
+
+local builtin = require('telescope.builtin')
+
+vim.keymap.set('n', '<leader>pf', builtin.find_files)
+vim.keymap.set('n', '<C-p>', builtin.git_files)
+vim.keymap.set('n', '<leader>ps', function ()
+    local ok, search  = pcall(vim.fn.input, "Grep > ")
+    if ok then
+        builtin.grep_string({ search = search })
+    end
+end)
+
+local harpoon = require("harpoon")
+
+harpoon:setup({ settings = { save_on_toggle = true } })
+
+vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+vim.keymap.set("n", "<C-t>", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<C-h>", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
+
+vim.pack.add({
+    "https://github.com/mbbill/undotree",
+})
+
+vim.keymap.set('n', '<leader>u', "<cmd>UndotreeToggle<cr>")
