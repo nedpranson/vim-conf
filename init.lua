@@ -51,27 +51,50 @@ vim.diagnostic.config({
     update_in_insert = false,
 })
 
+vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = function()
+        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
+        vim.api.nvim_set_hl(0, "Terminal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+        vim.api.nvim_set_hl(0, "FoldColumn", { bg = "none" })
+        vim.api.nvim_set_hl(0, "Folded", { bg = "none" })
+        vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+        vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+        vim.api.nvim_set_hl(0, "WhichKeyFloat", { bg = "none" })
+    end,
+})
+
 vim.pack.add({
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+    "https://github.com/nedpranson/omarchy-themer",
+})
+
+require("omarchy-themer").setup()
+
+vim.pack.add({
+    "https://github.com/nvim-treesitter/nvim-treesitter",
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-    callback = function() pcall(vim.treesitter.start) end,
+    callback = function()
+        pcall(vim.treesitter.start)
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
 })
 
-vim.pack.add{
-    { src = "https://github.com/neovim/nvim-lspconfig" },
-    { src = "https://github.com/mason-org/mason.nvim" },
-    { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+vim.pack.add {
+    "https://github.com/neovim/nvim-lspconfig",
+    "https://github.com/mason-org/mason.nvim",
+    "https://github.com/mason-org/mason-lspconfig.nvim",
 }
 
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-vim.pack.add{
-    { src = "https://github.com/L3MON4D3/LuaSnip" },
-    { src = "https://github.com/rafamadriz/friendly-snippets" },
-    { src = "https://github.com/saghen/blink.cmp" },
+vim.pack.add {
+    "https://github.com/L3MON4D3/LuaSnip",
+    "https://github.com/rafamadriz/friendly-snippets",
+    "https://github.com/saghen/blink.cmp",
 }
 
 require("luasnip.loaders.from_vscode").lazy_load()
