@@ -11,6 +11,11 @@ vim.o.expandtab = true
 vim.o.smartindent = true
 vim.o.wrap = false
 
+vim.g.omni_sql_no_default_maps = 1
+
+vim.opt.swapfile = false
+vim.opt.undofile = true
+
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
@@ -170,3 +175,13 @@ vim.pack.add({
 })
 
 vim.keymap.set('n', '<leader>u', "<cmd>UndotreeToggle<cr>")
+
+vim.pack.add({
+    "https://github.com/zeybek/camouflage.nvim",
+})
+
+require("camouflage").setup()
+
+vim.keymap.set('n', '<leader>ct', "<cmd>CamouflageToggle<cr>")
+vim.keymap.set('n', '<leader>cr', "<cmd>CamouflageReveal<cr>")
+vim.keymap.set('n', '<leader>cy', "<cmd>CamouflageYank<cr>")

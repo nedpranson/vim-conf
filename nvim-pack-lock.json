@@ -8,6 +8,10 @@
       "rev": "90d14caca4ae557665ab105080c27d5f289a2e30",
       "src": "https://github.com/saghen/blink.cmp"
     },
+    "camouflage.nvim": {
+      "rev": "a4690309fdbe0c5d608e3538ae0a4afd6b160b84",
+      "src": "https://github.com/zeybek/camouflage.nvim"
+    },
     "ethereal.nvim": {
       "rev": "a0ec73332e537228981b6a4f465cef82bb3e1d36",
       "src": "https://github.com/bjarneo/ethereal.nvim.git"
