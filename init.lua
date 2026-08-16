@@ -135,9 +135,11 @@ require("mason-lspconfig").setup()
 vim.pack.add({
     "https://github.com/L3MON4D3/LuaSnip",
     "https://github.com/rafamadriz/friendly-snippets",
+    "https://github.com/saghen/blink.lib",
     "https://github.com/saghen/blink.cmp",
 })
 
+require("blink.cmp").build():pwait()
 require("luasnip.loaders.from_vscode").lazy_load()
 require("blink.cmp").setup()
 
