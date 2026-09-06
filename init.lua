@@ -182,7 +182,16 @@ vim.pack.add({
     "https://github.com/zeybek/camouflage.nvim",
 })
 
-require("camouflage").setup()
+require("camouflage").setup({
+    policy = {
+        enabled = true,
+        default_action = "ignore",
+        rules = { {
+            action = "mask",
+            parser = "env",
+        } },
+    },
+})
 
 vim.keymap.set('n', '<leader>ct', "<cmd>CamouflageToggle<cr>")
 vim.keymap.set('n', '<leader>cr', "<cmd>CamouflageReveal<cr>")
